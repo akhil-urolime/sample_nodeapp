@@ -39,10 +39,4 @@ node{
       docker.Build('demo')
     }
 
-//    stage("Publish docker image in us-east-1") {
-//      dockerPushToEcr('us-west-1', 'demo', 'demo')
-
-    }
-
-
 }
