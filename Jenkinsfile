@@ -36,7 +36,13 @@ node{
     }
 
     stage('Build docker image') {
-      docker.Build('demo')
+    
+    docker.withServer('tcp://localhost:2375') {
+            dir(.) {
+            docker.build demo
+    }
+
+      }
     }
 
 }
