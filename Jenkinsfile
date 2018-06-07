@@ -42,11 +42,8 @@ fi
 docker_login=\$(aws ecr get-login --region $region)
 login_result=\$(\$docker_login)
 latest_tag="${env.AWS_ACCOUNT_ID}.dkr.ecr.${region}.amazonaws.com/$remoteRepositoryPathAndImageName:latest"
-// sha_tag="${env.AWS_ACCOUNT_ID}.dkr.ecr.${region}.amazonaws.com/$remoteRepositoryPathAndImageName:$commitSha"
 docker tag $localImageName:latest \$latest_tag
-//docker tag $localImageName:latest \$sha_tag
 docker push \$latest_tag
-//docker push \$sha_tag
 
 nildigests=\$(aws ecr list-images --region $region --repository-name "$remoteRepositoryPathAndImageName" | jq -r '.imageIds[] | select(has("imageTag") | not) | .imageDigest')
 for i in \$nildigests; do
