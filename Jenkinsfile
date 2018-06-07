@@ -38,7 +38,7 @@ node{
     stage('Build docker image') {
     
     docker.withServer('tcp://localhost:2375') {
-            docker.build demo
+            docker.build('demo')
 
       }
     }
