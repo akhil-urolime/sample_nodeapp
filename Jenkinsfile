@@ -16,7 +16,7 @@ properties([
     [
       $class: 'CredentialsParameterDefinition',
       credentialType: 'com.cloudbees.plugins.credentials.impl.UsernamePasswordCredentialsImpl',
-      defaultValue: 'AWS_Key_and_Secret',
+      defaultValue: '',
       description: '',
       name: 'AWS_Key_and_Secret',
       required: true
@@ -38,9 +38,7 @@ node{
     stage('Build docker image') {
     
     docker.withServer('tcp://localhost:2375') {
-            dir(.) {
             docker.build demo
-    }
 
       }
     }
