@@ -37,7 +37,7 @@ def dockerPushToEcr(region, remoteRepositoryPathAndImageName, localImageName) {
     withCredentials([[$class: 'StringBinding', credentialsId: AWS_ACCOUNT_ID, variable: 'AWS_ACCOUNT_ID'], [$class: 'UsernamePasswordMultiBinding', credentialsId: AWS_Key_and_Secret, passwordVariable: 'AWS_SECRET_ACCESS_KEY', usernameVariable: 'AWS_ACCESS_KEY_ID']]) {
       sh """
 set +e
-git_tag=\$(git describe --tags)
+git describe --tags
 aws ecr describe-repositories --region $region --repository-names $remoteRepositoryPathAndImageName
 create_result=\$?
 set -e
