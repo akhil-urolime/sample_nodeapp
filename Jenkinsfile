@@ -72,6 +72,7 @@ node{
     }
     stage("Publish docker image in us-east-1") {
       git_tag = sh """git describe --tag"""
+      println(git_tag)
       dockerPushToEcr('us-west-1', 'podchaser', 'podchaser-demo', git_tag)
     }
     stage("Deploy") {
