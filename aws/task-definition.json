@@ -3,7 +3,7 @@
     "family": "pod-task",
     "containerDefinitions": [
         {
-            "image": "753233110933.dkr.ecr.us-west-1.amazonaws.com/%REPO%:%BUILD_TAG%",
+            "image": "753233110933.dkr.ecr.us-west-1.amazonaws.com/podchaser:%BUILD_TAG%",
             "name": "pod-task",
             "essential": true,
             "cpu": 100,
