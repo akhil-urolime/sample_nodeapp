@@ -72,8 +72,8 @@ node{
       }
     }
     stage("Publish docker image in us-east-1") {
-      def git_tag = sh """git describe --tag"""
-      dockerPushToEcr('us-west-1', 'podchaser', 'podchaser-demo', git_tag )
+      // def git_tag = sh """git describe --tag"""
+      dockerPushToEcr('us-west-1', 'podchaser', 'podchaser-demo', git_tag = sh """git describe --tag""")
     }
     stage("Deploy") {
         // Replace BUILD_TAG placeholder in the task-definition file -
