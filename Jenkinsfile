@@ -72,7 +72,7 @@ node{
     }
     stage("Publish docker image in us-east-1") {
       // git_tag =$(git describe --tag)
-      git_tag = sh (script: 'git describe --tag', returnStdout: true).trim()
+      git_tag = sh (script: 'git describe --tags', returnStdout: true).trim()
       println "${git_tag}"
       dockerPushToEcr('us-west-1', 'podchaser', 'podchaser-demo', git_tag)
     }
