@@ -30,7 +30,6 @@ def taskDefile      = "file://aws/task-definition-${remoteImageTag}.json"
 def ecRegistry      = "https://753233110933.dkr.ecr.us-west-1.amazonaws.com"
 def version = ''
 def gitCommit = ''
-// @ git_tag = '' 
 def dockerPushToEcr(region, remoteRepositoryPathAndImageName, localImageName, git_tag) {
   println(git_tag)
   docker.withServer('tcp://localhost:2375') {
@@ -71,8 +70,8 @@ node{
       }
     }
     stage("Publish docker image in us-east-1") {
-      git_tag = sh """git describe --tag"""
-      println(git_tag)
+      def git_tag = sh """git describe --tag"""
+      println "${git_tag}"
       dockerPushToEcr('us-west-1', 'podchaser', 'podchaser-demo', git_tag)
     }
     stage("Deploy") {
