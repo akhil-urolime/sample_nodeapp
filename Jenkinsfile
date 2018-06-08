@@ -32,6 +32,7 @@ def ecRegistry      = "https://753233110933.dkr.ecr.us-west-1.amazonaws.com"
 
 def version = ''
 def gitCommit = ''
+def git_tag = ''
 def dockerPushToEcr(region, remoteRepositoryPathAndImageName, localImageName) {
   docker.withServer('tcp://localhost:2375') {
     withCredentials([[$class: 'StringBinding', credentialsId: AWS_ACCOUNT_ID, variable: 'AWS_ACCOUNT_ID'], [$class: 'UsernamePasswordMultiBinding', credentialsId: AWS_Key_and_Secret, passwordVariable: 'AWS_SECRET_ACCESS_KEY', usernameVariable: 'AWS_ACCESS_KEY_ID']]) {
