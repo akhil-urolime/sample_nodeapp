@@ -82,7 +82,6 @@ node{
           returnStdout: true,
           script:  "                                                              \
             aws ecs describe-task-definition  --task-definition pod-task          \
-                                              --region  us-west-1                 \
                                               | egrep 'revision'                  \
                                               | tr ',' ' '                        \
                                               | awk '{print \$2}'                 \
@@ -94,7 +93,6 @@ node{
           script:  "                                                              \
             aws ecs list-tasks  --cluster pod1                                    \
                                 --family  pod-task                                \
-                                --region  us-west-1                               \
                                 --output text                                     \
                                 | egrep 'TASKARNS'                                \
                                 | awk '{print \$2}'                               \
