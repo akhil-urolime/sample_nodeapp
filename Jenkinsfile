@@ -37,10 +37,7 @@ def dockerPushToEcr(region, remoteRepositoryPathAndImageName, localImageName) {
   docker.withServer('tcp://localhost:2375') {
     withCredentials([[$class: 'StringBinding', credentialsId: AWS_ACCOUNT_ID, variable: 'AWS_ACCOUNT_ID'], [$class: 'UsernamePasswordMultiBinding', credentialsId: AWS_Key_and_Secret, passwordVariable: 'AWS_SECRET_ACCESS_KEY', usernameVariable: 'AWS_ACCESS_KEY_ID']]) {
       sh """
-echo "Git Tag"
-git describe --tags
 set +e
-git_tag="DEPLOY.pod.1.3"
 aws ecr describe-repositories --region $region --repository-names $remoteRepositoryPathAndImageName
 create_result=\$?
 set -e
