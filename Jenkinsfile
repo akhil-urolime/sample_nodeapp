@@ -76,11 +76,6 @@ node{
     stage("Deploy") {
         // Replace BUILD_TAG placeholder in the task-definition file -
         // with the remoteImageTag (imageTag-BUILD_NUMBER)
-        sh  "                                                                     \
-          sed -e  's;%BUILD_TAG%;${remoteImageTag};g'                             \
-                  aws/task-definition.json >                                      \
-                  aws/task-definition-${remoteImageTag}.json                      \
-        "
 
         // Get current [TaskDefinition#revision-number]
         def currTaskDef = sh (
