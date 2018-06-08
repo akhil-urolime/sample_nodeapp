@@ -63,7 +63,7 @@ node{
     stage('Checkout source repo') {
       git 'https://github.com/akhil-urolime/sample_nodeapp.git'     
       checkout scm
-      git_tag = sh """git describe --tags""""git --version"
+      git_tag = sh """git describe --tags""""
     }
 
     stage('Build docker image') {
