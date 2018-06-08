@@ -32,7 +32,7 @@ def ecRegistry      = "https://753233110933.dkr.ecr.us-west-1.amazonaws.com"
 
 def version = ''
 def gitCommit = ''
-def dockerPushToEcr(region, remoteRepositoryPathAndImageName, localImageName, ${git_tag} ) {
+def dockerPushToEcr(region, remoteRepositoryPathAndImageName, localImageName,  git_tag ) {
   println(git_tag)
   docker.withServer('tcp://localhost:2375') {
     withCredentials([[$class: 'StringBinding', credentialsId: AWS_ACCOUNT_ID, variable: 'AWS_ACCOUNT_ID'], [$class: 'UsernamePasswordMultiBinding', credentialsId: AWS_Key_and_Secret, passwordVariable: 'AWS_SECRET_ACCESS_KEY', usernameVariable: 'AWS_ACCESS_KEY_ID']]) {
@@ -73,7 +73,7 @@ node{
     }
     stage("Publish docker image in us-east-1") {
       // def git_tag = sh """git describe --tag"""
-      dockerPushToEcr('us-west-1', 'podchaser', 'podchaser-demo', git_tag = sh """git describe --tag""")
+      dockerPushToEcr('us-west-1', 'podchaser', 'podchaser-demo', String git_tag = sh """git describe --tag""")
     }
     stage("Deploy") {
         // Replace BUILD_TAG placeholder in the task-definition file -
