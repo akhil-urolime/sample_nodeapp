@@ -63,7 +63,6 @@ node{
     stage('Checkout source repo') {
       git 'https://github.com/akhil-urolime/sample_nodeapp.git'     
       checkout scm 
-      git_tag = sh(returnStdout: true, script: "git tag --contains | head -1").trim() 
     }
 
     stage('Build docker image') {
@@ -73,6 +72,7 @@ node{
       }
     }
     stage("Publish docker image in us-east-1") {
+      git_tag = sh """git describe --tag"""
       dockerPushToEcr('us-west-1', 'podchaser', 'podchaser-demo', '${git_tag}')
     }
     stage("Deploy") {
