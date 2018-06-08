@@ -47,7 +47,7 @@ aws ecr create-repository --region $region --repository-name $remoteRepositoryPa
 fi
 docker_login=\$(aws ecr get-login --region $region)
 login_result=\$(\$docker_login)
-latest_tag="${env.AWS_ACCOUNT_ID}.dkr.ecr.${region}.amazonaws.com/$remoteRepositoryPathAndImageName:$git_tag"
+latest_tag="${env.AWS_ACCOUNT_ID}.dkr.ecr.${region}.amazonaws.com/$remoteRepositoryPathAndImageName:${git_tag}"
 docker tag $localImageName:latest \$latest_tag
 docker push \$latest_tag
 nildigests=\$(aws ecr list-images --region $region --repository-name "$remoteRepositoryPathAndImageName" | jq -r '.imageIds[] | select(has("imageTag") | not) | .imageDigest')
