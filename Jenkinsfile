@@ -33,7 +33,9 @@ def ecRegistry      = "https://753233110933.dkr.ecr.us-west-1.amazonaws.com"
 def version = ''
 def gitCommit = ''
 git_tag = ''
-def dockerPushToEcr(region, remoteRepositoryPathAndImageName, localImageName, git_tag) {
+
+node{
+    def dockerPushToEcr(region, remoteRepositoryPathAndImageName, localImageName, git_tag) {
   println(git_tag)
   docker.withServer('tcp://localhost:2375') {
     withCredentials([[$class: 'StringBinding', credentialsId: AWS_ACCOUNT_ID, variable: 'AWS_ACCOUNT_ID'], [$class: 'UsernamePasswordMultiBinding', credentialsId: AWS_Key_and_Secret, passwordVariable: 'AWS_SECRET_ACCESS_KEY', usernameVariable: 'AWS_ACCESS_KEY_ID']]) {
@@ -59,8 +61,6 @@ done
     }
   }
 }
-node{
-
     stage('Checkout source repo') {
       git 'https://github.com/akhil-urolime/sample_nodeapp.git'     
       checkout scm 
