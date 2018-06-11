@@ -74,6 +74,10 @@ node{
       // git_tag =$(git describe --tag)
       git_tag = sh (script: 'git describe --tags', returnStdout: true).trim()
       println "${git_tag}"
+      sh  "
+        stack_name=`echo "$git_tag" | sed "s/\..*//"`
+        echo "stack_name=$stack_name"
+      "
       dockerPushToEcr('us-west-1', 'podchaser', 'podchaser-demo', git_tag)
     }
     stage("Deploy") {
